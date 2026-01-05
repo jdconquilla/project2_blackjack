@@ -62,18 +62,161 @@ The game allows 1-4 players to play Blackjack against a computerized dealer, pla
 
 #### Main Classes
 
-- Card - rank, suit, value attributes of each card
+##### Card class
 
-- Deck - creates a 52-card deck, automatically shuffles and deal cards
+represents a single playing card with a rank and suit
 
-- Hand - which handles card storage per player. value calculation, bust and win detection, and cards display
+###### Parameters:
 
-- Player - checks the place bet and player turn
+- name (str): Card rank (2-10, J, Q, K, A)
 
-- Dealer - inherits from Player and has the blackjack logic rules
+- suit (str): Card suit (S, D, H, C)
 
-- BlackjackGame - control game glow and logic
+###### Methods:
 
+- display(self)
+
+    Displays the card in a readable format using suit symbols.
+
+- value(self)
+
+    Returns the Blackjack value of the card as an integer:
+
+> Face cards = 10;
+> Ace = 1 or 11;
+> Number cards = face value
+
+##### Deck class 
+
+Creates a 52-card deck, automatically shuffles and deal cards.
+###### Methods:
+- shuffle(self)
+
+    Shuffle the deck randomly
+
+- deal(self)
+
+    Removes and returns the top card from the deck.
+  
+##### Hand 
+
+Handles card storage per player. value calculation, bust and win detection, and cards display
+
+###### Parameters:
+
+- card (Card): Card to add to the hand
+  
+###### Methods:
+
+- display_hand(self)
+
+    Displays all cards currently in the hand.
+
+- hand_value(self)
+  
+    Calculates and returns the total Blackjack value of the hand, adjusting Aces as needed.
+
+- detect_blackjack(self)
+  
+    Returns True if the hand is a Blackjack (total of 21).
+
+- detect_bust(self)
+
+    Returns True if the hand value exceeds 21.
+  
+##### Player class 
+
+Represents a Blackjack player: checks the place bet and player turn
+  
+###### Paramaters: 
+
+- name (str): Player's name
+
+- balance (int): Starting balance
+
+- bet (int): Current bet amount
+
+###### Methods:
+
+- place_bet(self, amount)
+
+    Attempts to a place a bet. Returns True if valid, False if not.
+
+- hit(self, deck)
+  
+    Deals one card to the player's hand
+
+- stand(self)
+
+    Ends the player's turn.
+
+- bal(self)
+    Displays the player's current balance.
+  
+##### Dealer class 
+
+Represents the Blackjack dealer: inherits from Player and has the blackjack logic rules
+
+###### Methods:
+
+- play_turn(self, deck)
+  
+    Automatically plays the dealer's turn by hitting until hand value is at least 17.
+
+- reveal_initial_card(self)
+  
+    Displays only the dealer's first card.
+
+- reveal_hand(self)
+
+    Displays all cards in the dealer's hand
+
+##### BlackjackGame class
+
+Controls game glow and logic
+
+###### Methods:
+
+- start(self)
+
+    Starts the game loop and manages rounds.
+
+- setup_players(self)
+
+    Prompts the user to create player profiles.
+
+- place_bets(self)
+
+    Prompts each player to place a valid bet.
+  
+- initial_deal(self)
+
+    Deals two cards to each player and the dealer.
+
+- reset_hands(self)
+
+    Clears all hands and resets player bets.
+
+- resolve_round(self)
+
+    Compares hands and updates player balances based on outcomes.
+
+- eliminate_broke_players(self)
+
+    Removes players who have run out of balance.
+
+- ask_continue(self)
+
+    Asks remaining players if they want to continue playing.
+
+- leader_board(self)
+
+    Displays current balances of all players.
+
+- reveal_rules(self)
+
+    Prints the Blackjack rules to the console.
+  
 ### Recommendations
 
 - Add the Blackjack payout of 3:2
